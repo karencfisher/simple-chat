@@ -33,7 +33,7 @@ https://beta.openai.com/account/api-keys
 6) Create an .env file in the same directory, and in it include the line:
 
 ```
-SECRET_KEY - '<your secret key>'
+SECRET_KEY = '<your secret key>'
 ```
 
 Pasting your API key in place of the <your secret key>

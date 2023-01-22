@@ -36,7 +36,7 @@ https://beta.openai.com/account/api-keys
 SECRET_KEY = '<your secret key>'
 ```
 
-Pasting your API key in place of the <your secret key>
+Pasting your API key in place of the '<your secret key>'
 
 
 ### Use

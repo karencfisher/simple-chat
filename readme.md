@@ -1,6 +1,6 @@
 ## Simple voice chat with GPT-3
 
-Maybe the simplest voice chat with GPT-3 one can build? Using SpeechRecognition to convert speech to text (using the Google speech recongition engine), passing to GPT-3 via the OpenAI API, and then converting the resulting text to speech using Coqui TTS and simple audio. 
+Maybe the simplest voice chat with GPT-3 one can build? Using SpeechRecognition to convert speech to text (using the Google speech recongition engine), passing the text to GPT-3 via the OpenAI API, and then converting the resulting text to speech using Coqui TTS and simple audio. 
 
 Developed and test on Windows 10.
 

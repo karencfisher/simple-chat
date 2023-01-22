@@ -8,7 +8,7 @@ Developed and test on Windows 10.
 
 It might be necessary to have installed eSpeak-ng. https://github.com/espeak-ng/espeak-ng/blob/master/docs/guide.md
 
-1) Clone this repository
+1) Clone this repository, and change to the new directory
 2) Create a Python virtual environment and activate it, e.g., 
 
 ```

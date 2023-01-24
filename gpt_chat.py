@@ -1,6 +1,6 @@
 import os
 import openai
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 import speech_recognition as sr
 from TTS.api import TTS
 import simpleaudio as sa
@@ -8,6 +8,7 @@ import simpleaudio as sa
 
 class GPTChat:
     def __init__(self):
+        load_dotenv()
         self.secret_key = os.getenv('SECRET_KEY')
         self.recog = sr.Recognizer()
         model_name = TTS.list_models()[0]
@@ -23,6 +24,7 @@ class GPTChat:
         print('Exiting')
 
     def __prompt_gpt(self, prompt):
+        print('Calling GPT-3...')
         openai.api_key = self.secret_key
         response = openai.Completion.create(
             engine = "text-davinci-003",
@@ -35,19 +37,12 @@ class GPTChat:
     def __listen(self):
         while 1:
             try:
-                # use the microphone as source for input.
-                with sr.Microphone() as source2:
-                    self.recog.adjust_for_ambient_noise(source2, duration=0.2)
-                    
-                    #listens for the user's input
+                with sr.Microphone() as source:
+                    self.recog.adjust_for_ambient_noise(source, duration=1)
                     print('listening...')
-                    audio2 = self.recog.record(source2, duration=5)
-
-                    # Using google to recognize audio
-                    MyText = self.recog.recognize_google(audio2)
-
-                    if MyText != '':
-                        return MyText
+                    audio = self.recog.listen(source)
+                    MyText = self.recog.recognize_google(audio)
+                    return MyText
 
             except sr.RequestError as e:
                 print("Could not request results; {0}".format(e))
@@ -56,6 +51,7 @@ class GPTChat:
                 continue
 
     def __respond(self, text):
+        print('Speaking...')
         out_path = os.path.join(os.getcwd(), 'output.wav')
         self.tts.tts_to_file(text=text, 
                     speaker=self.tts.speakers[0], 

@@ -63,7 +63,7 @@ CONTEXT:
 
 [human] Why don't you tell us who you are?  
 
-[AI] I am Susan, virtual assistant, so I'm always here to help you. No matter where you are, I'm here to answer your questions.  
+[AI] I am Susan, an AI virtual assistant, so I'm always here to help you. No matter where you are, I'm here to answer your questions.  
 
 [human] okay what is the meaning of life?  
 
@@ -92,3 +92,11 @@ Run
 ```
 
 The program will initialize the TTS and SpeechRecognition modules, and then display "listen..." Talk with GPT-3. Say "goodbye" to exit.
+
+
+<span style="color: gray">
+<h2>Logs</h2>
+</span>
+
+The program also records transcriptions of the conversation in a log file. It is named by the date and time
+of the ocnversation, and is stored in the logs directory.

@@ -5,21 +5,28 @@ import speech_recognition as sr
 from TTS.api import TTS
 import simpleaudio as sa
 
+from context import Context
+
 
 class GPTChat:
-    def __init__(self):
+    def __init__(self, pretext=''):
         load_dotenv()
         self.secret_key = os.getenv('SECRET_KEY')
         self.recog = sr.Recognizer()
         model_name = TTS.list_models()[0]
         self.tts = TTS(model_name)
+        self.context = Context(pretext=pretext)
 
     def loop(self):
         text = ''
         while text != 'goodbye':
             text = self.__listen()
-            response = self.__prompt_gpt(text)
+            self.context + text
+            prompt = self.context.get_prompt()
+            print(prompt)
+            response = self.__prompt_gpt(prompt)
             self.__respond(response)
+            self.context + response
 
         print('Exiting')
 
@@ -66,7 +73,12 @@ class GPTChat:
 
 
 def main():
-    gpt_chat = GPTChat()
+    if os.path.exists('pretext.txt'):
+        with open('pretext.txt', 'r') as PRETEXT:
+            pretext = PRETEXT.read()
+            pretext = pretext.replace('\n', ' ')
+            print(pretext)
+    gpt_chat = GPTChat(pretext=pretext)
     gpt_chat.loop()
 
 

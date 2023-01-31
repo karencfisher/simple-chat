@@ -38,6 +38,20 @@ SECRET_KEY = '<your secret key>'
 
 Pasting your API key in place of the '<your secret key>'
 
+### Establishing context
+
+In order to make an interesting chatbot to have a conversation with, there is maintenance of a
+rolling context. It includes a "pretext" prompting GPT-3 to take a particular role. For example,
+
+"The following is a conversation with an AI assistant. The assistant is helpful, creative, 
+clever, and very friendly."
+
+If there is a pretext, it is stored in a text file which must be pretext.txt.
+
+The ensuing interaction (the context) is then appended after the pretext (if there is any), up to 2048 tokens
+(both pretext and the context). When the total number of tokens exceed 2048 (the input limit for GPT-3), 
+the context is truncated from the earliest intereactions. This maintains at least a short memory of the
+interaction.
 
 ### Use
 

@@ -23,7 +23,6 @@ class GPTChat:
             text = self.__listen()
             self.context + text
             prompt = self.context.get_prompt()
-            print(prompt)
             response = self.__prompt_gpt(prompt)
             self.__respond(response)
             self.context + response
@@ -77,7 +76,6 @@ def main():
         with open('pretext.txt', 'r') as PRETEXT:
             pretext = PRETEXT.read()
             pretext = pretext.replace('\n', ' ')
-            print(pretext)
     gpt_chat = GPTChat(pretext=pretext)
     gpt_chat.loop()
 

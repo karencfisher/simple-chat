@@ -3,6 +3,9 @@ import tiktoken as tt
 
 class Context:
     def __init__(self, pretext='', max_tokens=2048):
+        '''
+        Managing the context
+        '''
         self.__context = ''
         self.__encoder = tt.get_encoding('p50k_base')
         self.__pretext = pretext + '\n'

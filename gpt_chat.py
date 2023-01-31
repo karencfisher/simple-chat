@@ -91,7 +91,7 @@ class GPTChat:
         Listen for user input
 
         Returns: transcription of the user's spoken input
-        THrows 
+        Throws ConnectionError if request errors
         '''
         while 1:
             try:

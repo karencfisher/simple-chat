@@ -50,7 +50,7 @@ class Context:
 
     def __add__(self, text):
         '''
-        Add text to context
+        Add text to context, overloads the addition operator
 
         Input: new text
         '''

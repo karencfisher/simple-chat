@@ -154,7 +154,7 @@ def main():
                         format='%(message)s')
     logger = logging.getLogger()
 
-    # If prestext file exists, load it
+    # If pretext file exists, load it
     if os.path.exists('pretext.txt'):
         with open('pretext.txt', 'r') as PRETEXT:
             pretext = PRETEXT.read()

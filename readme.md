@@ -85,7 +85,8 @@ GPT-3</b>. When that limit is reached, the earlier portions of the context is tr
 </span>
 
 You can also define different use cases aside as an AI assistant or chat bot by defining a different
-pretext. For example, to serve as an English to French translator, create a pretext.txt file containing
+pretext. For example, to use as an English to French translator, create a pretext.txt file containing
+simply:
 
 ```
 Translate English to French

@@ -133,9 +133,9 @@ class GPTChat:
 
         # Generate wav file
         self.tts.tts_to_file(text=text, 
-                    speaker=self.tts.speakers[0], 
-                    language=self.tts.languages[0], 
-                    file_path=out_path)
+                             speaker=self.tts.speakers[0], 
+                             language=self.tts.languages[0], 
+                             file_path=out_path)
     
         # play and delete
         wave_obj = sa.WaveObject.from_wave_file(out_path)

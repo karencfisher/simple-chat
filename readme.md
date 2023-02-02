@@ -80,6 +80,32 @@ The total length of this altogether, which becomes the next prompt to the model.
 <b>The total combination of pretext and context cannot exceed 2048 tokens, which is the input limit for
 GPT-3</b>. When that limit is reached, the earlier portions of the context is truncated.<br>
 
+<span style="color: gray">
+<h2>Different tasks</h2>
+</span>
+
+You can also define different use cases aside as an AI assistant or chat bot by defining a different
+pretext. For example, to serve as an English to French translator, create a pretext.txt file containing
+
+```
+Translate English to French
+```
+
+For example, a transcription of a translation session then:
+
+```
+[human] good morning
+[AI] Bonjour
+[human] what are we doing today
+[AI] Qu'est-ce que nous faisons aujourd'hui ?
+[human] maybe we can prove on your accent
+[AI] Peut-�tre que nous pouvons travailler sur ton accent
+[human] goodbye
+[AI] Au revoir
+```
+
+Though the accent could be better, to say the least.
+
          
 <span style="color: gray">
 <h2>Use</h2>

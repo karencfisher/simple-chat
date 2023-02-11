@@ -4,12 +4,12 @@
 
 Maybe the simplest voice chat with GPT-3 one can build? This is a project to build a voice interface for GPT-3, which can be used as a chatbot or for other purposes. Using SpeechRecognition to convert speech to text (using the Google speech recongition engine), passing the text to GPT-3 via the OpenAI API, and then converting the resulting text to speech using Coqui TTS and simple audio. The use case is defined by providing a prompt as a "pretext," which merely needs to be saved in a text file. 
 
+<b>Update:</b> Changed both speech recognition engine to Vosk, and text to speech to pyttsx3. These are more efficient, resulting in less latecny!
+
 
 <span style="color: gray">
 <h2>Installation</h2>
 </span>
-
-It might be necessary to have installed eSpeak-ng. https://github.com/espeak-ng/espeak-ng/blob/master/docs/guide.md
 
 1) Clone this repository, and change to the new directory
 2) Create a Python virtual environment and activate it, e.g., 

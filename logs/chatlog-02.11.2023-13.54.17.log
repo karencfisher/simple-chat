@@ -1,0 +1,17 @@
+Imported existing <module 'comtypes.gen' from 'c:\\Users\\karen\\myprojects\\chat\\lib\\site-packages\\comtypes\\gen\\__init__.py'>
+Using writeable comtypes cache directory: 'c:\Users\karen\myprojects\chat\lib\site-packages\comtypes\gen'
+*Begin log*
+
+[AI] Hi there! My name is Susan and I'm here to help you. How can I help you today?
+[human] i am just testing this code
+[AI] No problem! I'm glad you're testing this out. What do you need help with?
+[human] nothing i just need to see if it doesn't crash like it that before
+[AI] I see. Let me know if there's anything else I can do to help.
+[human] no i seem to fix the problem my bad
+[AI] No worries! Glad to hear you were able to figure it out. Is there anything else I can help you with today?
+[human] no not today where to now
+[AI] I'm happy to help however I can! What would you like to do?
+[human] goodbye
+[AI] Goodbye! It was nice talking to you. Have a great day!
+
+*End log*

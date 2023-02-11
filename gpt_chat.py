@@ -10,15 +10,15 @@ to reply, and then the program exits.
 
 '''
 import os
+import json
 import logging
 from datetime import datetime
 import openai
 from dotenv import load_dotenv
-import speech_recognition as sr
-from TTS.api import TTS
-import simpleaudio as sa
 
 from context import Context
+from vosk_recognizer import SpeechRecognize
+from tts import Text2Speech
 
 
 class GPTChat:
@@ -27,10 +27,15 @@ class GPTChat:
         load_dotenv()
         self.secret_key = os.getenv('SECRET_KEY')
 
-        # intialize speech recognition and TTS
-        self.recog = sr.Recognizer()
-        model_name = TTS.list_models()[0]
-        self.tts = TTS(model_name)
+        # intialize speech recognition
+        self.recog = SpeechRecognize()
+
+        # Initialize TTS
+        self.tts = Text2Speech()
+
+        # fetch gpt-3 config
+        with open('gpt3_config.json', 'r') as FP:
+            self.gpt3_config = json.load(FP)
 
         # set up context
         self.context = Context(pretext=pretext)
@@ -45,15 +50,8 @@ class GPTChat:
         Loops until the user says simply "goodbye" and model has responded
         to that prompt.
         '''
-        text = ''
-        while text != 'goodbye':
-            # Listen for user input
-            try:
-                text = self.__listen()
-            except ConnectionError:
-                break
-            self.logger.info(f'[human] {text}')
-
+        text = 'hello'
+        while True:
             # update context and get prompt
             self.context + text
             prompt = self.context.get_prompt()
@@ -62,12 +60,20 @@ class GPTChat:
             response = self.__prompt_gpt(prompt)
 
             # speak and log response
-            self.__respond(response)
+            self.tts.speak(response)
             self.logger.info(f'[AI] {response.strip()}')
             self.context + response
 
+            # See if user said goodbye
+            if text == 'goodbye':
+                break
+
+            # Listen for user input
+            text = self.recog.speech_to_text()
+            self.logger.info(f'[human] {text}')
+
         self.logger.info('\n*End log*')
-        print('Exiting')
+        print('\rExiting...')
 
     def __prompt_gpt(self, prompt):
         '''
@@ -76,72 +82,15 @@ class GPTChat:
         Input: prompt - string
         Returns: text from the model
         '''
-        print('Calling GPT-3...')
+        print('\rWaiting...     ', end='')
         openai.api_key = self.secret_key
         response = openai.Completion.create(
-            engine = "text-davinci-003",
+            engine = self.gpt3_config['engine'],
             prompt = prompt,
-            temperature = 0.6,
-            max_tokens = 150
+            temperature = self.gpt3_config['temperature'],
+            max_tokens = self.gpt3_config['max_tokens']
         )
         return response.choices[0].text
-
-    def __listen(self):
-        '''
-        Listen for user input
-
-        Returns: transcription of the user's spoken input
-        Throws ConnectionError if request errors
-        '''
-        while 1:
-            try:
-                with sr.Microphone() as source:
-                    # Adjust for ambient noise
-                    self.recog.adjust_for_ambient_noise(source, duration=1)
-
-                    # Listen
-                    print('listening...')
-                    audio = self.recog.listen(source)
-
-                    # speech to text
-                    MyText = self.recog.recognize_google(audio)
-                    return MyText
-
-            except sr.RequestError as e:
-                # Error such as exhausting quota for requests
-                msg = f'Could not request results due to error: {e}'
-                print(msg)
-                self.logger.error(msg)
-                raise ConnectionError
-         
-            except sr.UnknownValueError:
-                # Silence
-                continue
-
-    def __respond(self, text):
-        '''
-        Text to speech
-
-        Uses TTS to translate text to speech stored in a temporary wav file.
-        Then play wav file, and delete.
-
-        Input: text, string
-
-        '''
-        print('Speaking...')
-        out_path = os.path.join(os.getcwd(), 'output.wav')
-
-        # Generate wav file
-        self.tts.tts_to_file(text=text, 
-                             speaker=self.tts.speakers[0], 
-                             language=self.tts.languages[0], 
-                             file_path=out_path)
-    
-        # play and delete
-        wave_obj = sa.WaveObject.from_wave_file(out_path)
-        play_obj = wave_obj.play()
-        play_obj.wait_done()
-        os.remove(out_path)
 
 
 def main():
@@ -161,6 +110,7 @@ def main():
             pretext = pretext.replace('\n', ' ')
 
     # Inistantiate GPTChat and run loop
+    print('Initializing...', end='')
     gpt_chat = GPTChat(logger, pretext=pretext)
     gpt_chat.loop()
 

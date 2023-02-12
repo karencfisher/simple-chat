@@ -110,7 +110,7 @@ CONTEXT:
 [human] Tell me more about it?
 
 The <span style="color: gray">PRETEXT</span> defines a role or character for the conversational agent, or other
-wise define it's purpose. It is defined in a text file in the working directory that woth the file name of 'pretext.txt.' If one want to omit a pretext, the file can be omitted.
+wise define it's purpose. It is defined in a text file in the working directory with the file name of 'pretext.txt'. If one wants to omit a pretext (using GPT-3 essentially out of the box), the file can simply be omitted.
 
 The <span style="color: gray">CONTEXT</span> then is the rolling, recent conversation. 
 

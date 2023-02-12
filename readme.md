@@ -20,6 +20,8 @@ As a development project, 'installation' consists of pulling down the source cod
 environment, so as to not possibly conflicting with other Python packages alread on one's system globally. This is the recommended practice for any such
 project.
 
+Use at your risk. ;) And if you do dare ;), and encounter any issue/bug/suggestion, feel free to open an issue. I'd appreciate the feedback.
+
 1) Clone this repository, and change to the new directory
 
 ```

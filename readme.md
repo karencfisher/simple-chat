@@ -121,6 +121,24 @@ GPT-3</b>. When that limit is reached, the earlier portions of the context are t
 <span style="color: gray">
 <h2>Different tasks</h2>
 </span>
+
+There is no need to have the model only behave as an AI assistant or chatbot. You can, for example, also have it perform language translation. (Don't
+expect a native accent -- it's French pronunciation is horrible!)
+
+```
+[AI] Bonjour
+[human] throw something and french
+[AI] Lancer quelque chose
+[human] your accent is really bad
+[AI] Votre accent est vraiment mauvais
+[human] goodbye
+[AI] Au revoir
+```
+
+One can also
+experiment with other sorts of prompt engineering: for example, maybe one wants a surly chatbot, with a cynical outlook on life. The pretext file can
+also include few-shot learning, giving the model a few examples of how it should respond. One of the amazing abilities of these LLMs is there ability
+to perform few-shot learning on new tasks.
         
 <span style="color: gray">
 <h2>Use</h2>

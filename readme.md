@@ -12,6 +12,10 @@ Maybe the simplest voice chat with GPT-3 one can build? This is a project to bui
 </span>
 
 1) Clone this repository, and change to the new directory
+
+```
+>>> git clone 
+
 2) Create a Python virtual environment and activate it, e.g., 
 
 ```

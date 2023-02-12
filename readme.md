@@ -31,7 +31,11 @@ Maybe the simplest voice chat with GPT-3 one can build? This is a project to bui
 >>> pip -r requirements.txt
 ```
 
-4) If you do not already have an account to use the OpenAI API, you will need to do so. 
+4) If you do not already have an account to use the OpenAI API, you will need to do so. You 
+will initially have $18 credit for usage, which is good for 3 months. If you have used the
+free credits or they have expired after 3 months (which ever happens first), you will need to 
+set up a paid account. Text generation, for the largest GPT-3 model DaVinci-0003,
+costs $0.02/thousand tokens (about 750 words on average).
 
 https://openai.com/api/
 

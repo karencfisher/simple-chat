@@ -15,8 +15,8 @@ Maybe the simplest voice chat with GPT-3 one can build? This is a project to bui
 2) Create a Python virtual environment and activate it, e.g., 
 
 ```
->>> python -m venv .
->>> scripts\activate
+>>> python -m venv chat_env
+>>> chat_env\scripts\activate
 ```
 
 3) Install dependencies using the requirements.txt file, e.g.,

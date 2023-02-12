@@ -4,12 +4,21 @@
 
 Maybe the simplest voice chat with GPT-3 one can build? This is a project to build a voice interface for GPT-3, which can be used as a chatbot or for other purposes. Using SpeechRecognition to convert speech to text (using the Google speech recongition engine), passing the text to GPT-3 via the OpenAI API, and then converting the resulting text to speech using Coqui TTS and simple audio. The use case is defined by providing a prompt as a "pretext," which merely needs to be saved in a text file. 
 
-<b>Update:</b> Changed both speech recognition engine to Vosk, and text to speech to pyttsx3. These are more efficient, resulting in less latency!
+<b>Update:</b> Changed both speech recognition engine to Vosk, and text to speech to pyttsx3. These are more efficient, resulting in less latency! Vosk performs
+speech recognition, for example, locally rather than incurring an additional API call to the cloud (such as Google Speech Recognition services). Pyttsx3 seems
+faster as well. On Windows it uses the SAPI for speech synthesis. For other platforms, you may need to install another service such as eSpeak. See the pyttstx3
+documentation for details.
+
+https://pyttsx3.readthedocs.io/en/latest/
 
 
 <span style="color: gray">
 <h2>Installation</h2>
 </span>
+
+As a development project, 'installation' consists of pulling down the source code and install the required dependencies. That is best done with a Python virtual
+environment, so as to not possibly conflicting with other Python packages alread on one's system globally. This is the recommended practice for any such
+project.
 
 1) Clone this repository, and change to the new directory
 
@@ -55,11 +64,16 @@ SECRET_KEY = '<your secret key>'
 
 There are three configuration files:
 
-gpt3_config.json: where you can set the specific engine, temperature, and max_tokens  
-vosk_config.json: settings for vosk speech recognition
+gpt3_config.json: where you can set the specific engine, temperature, and max_tokens. Changing the temperature will change the
+randomness or variation in of the model's responses. The lower the temperature, the less 'creative' it will be in its responses, 
+and it may be more repetitive. The higher, the more 'creative' it may be.
+
+vosk_config.json: settings for vosk speech recognition. These have technical details like bit rate and buffer sizes, and likely
+won't need to be change often. But they are exposed for the brave.
+
 voice.json: here is where you may be able to select the voice to be used. Currently, it uses 
 a voice provided by Windows 10. On other platforms one needs to find the voice they
-prefer.
+prefer: see the pyttsx3 documentation linked above.
 
 <span style="color: gray">
 <h2>Maintaining context</h2>
@@ -105,31 +119,7 @@ GPT-3</b>. When that limit is reached, the earlier portions of the context are t
 <span style="color: gray">
 <h2>Different tasks</h2>
 </span>
-
-You can also define different use cases aside as an AI assistant or chat bot by defining a different
-pretext. For example, to use as an English to French translator, create a pretext.txt file containing
-simply:
-
-```
-Translate English to French
-```
-
-For example, a transcription of a translation session then:
-
-```
-[human] good morning
-[AI] Bonjour
-[human] what are we doing today
-[AI] Qu'est-ce que nous faisons aujourd'hui ?
-[human] maybe we can prove on your accent
-[AI] Peut-�tre que nous pouvons travailler sur ton accent
-[human] goodbye
-[AI] Au revoir
-```
-
-Though the accent could be better, to say the least.
-
-         
+        
 <span style="color: gray">
 <h2>Use</h2>
 </span>

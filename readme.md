@@ -14,7 +14,9 @@ Maybe the simplest voice chat with GPT-3 one can build? This is a project to bui
 1) Clone this repository, and change to the new directory
 
 ```
->>> git clone 
+>>> git clone https://github.com/karencfisher/simple-chat.git
+>>> cd simple-chat
+```
 
 2) Create a Python virtual environment and activate it, e.g., 
 
@@ -134,7 +136,8 @@ Run
 >>> python gpt_chat.py
 ```
 
-The program will initialize the TTS and SpeechRecognition modules, and then display "listen..." Talk with GPT-3. Say "goodbye" to exit.
+The program will initialize the speech rocognition and synthesis modules, and GPT-3 will greet you. Talk with GPT-3. Say "goodbye" to exit.
+A transcription of your conversation will be in the log files, labeled by date and time.
 
 
 <span style="color: gray">

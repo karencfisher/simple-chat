@@ -1,3 +1,6 @@
+'''
+Implements text to speech using pyttsx3
+'''
 import pyttsx3
 import json
 

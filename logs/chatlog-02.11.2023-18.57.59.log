@@ -1,0 +1,14 @@
+Could not import comtypes.gen, trying to create it.
+Created comtypes.gen directory: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen'
+Writing __init__.py file: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen\__init__.py'
+Using writeable comtypes cache directory: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen'
+Could not import comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4: No module named 'comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4'
+# Generating comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4
+Could not import comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0: No module named 'comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0'
+# Generating comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0
+Could not import comtypes.gen.stdole: No module named 'comtypes.gen.stdole'
+# Generating comtypes.gen.stdole
+Could not import comtypes.gen.SpeechLib: No module named 'comtypes.gen.SpeechLib'
+# Generating comtypes.gen.SpeechLib
+*Begin log*
+

@@ -1,3 +1,7 @@
+'''
+Implements Vosk speech recognition
+'''
+
 import json
 
 import vosk

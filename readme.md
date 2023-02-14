@@ -112,7 +112,7 @@ wise define it's purpose. It is defined in a text file in the working directory 
 
 The <span style="color: gray">CONTEXT</span> then is the rolling, recent conversation. 
 
-The total length of this altogether, which becomes the next prompt to the model.
+The two portions of text are concatenated becoming the next prompt to the model.
 <b>The total combination of pretext and context cannot exceed 2048 tokens, which is the input limit for
 GPT-3</b>. When that limit is reached, the earlier portions of the context are truncated.<br>
 

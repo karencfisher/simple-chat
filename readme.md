@@ -147,7 +147,7 @@ to perform few-shot learning on new tasks.
 Run
 
 ```
->>> python gpt_chat.py
+python gpt_chat.py
 ```
 
 The program will initialize the speech rocognition and synthesis modules, and GPT-3 will greet you. Talk with GPT-3. Say "goodbye" to exit.

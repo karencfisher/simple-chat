@@ -25,21 +25,21 @@ Use at your risk. ;) And if you do dare ;), and encounter any issue/bug/suggesti
 1) Clone this repository, and change to the new directory. (You will need to have git and LFS installed.)
 
 ```
->>> git clone https://github.com/karencfisher/simple-chat.git
->>> cd simple-chat
+git clone https://github.com/karencfisher/simple-chat.git
+cd simple-chat
 ```
 
 2) Create a Python virtual environment and activate it, e.g., 
 
 ```
->>> python -m venv chat_env
->>> chat_env\scripts\activate
+python -m venv chat_env
+chat_env\scripts\activate
 ```
 
 3) Install dependencies using the requirements.txt file, e.g.,
 
 ```
->>> pip -r requirements.txt
+pip -r requirements.txt
 ```
 
 4) If you do not already have an account to use the OpenAI API, you will need to do so. You 

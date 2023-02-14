@@ -104,9 +104,8 @@ CONTEXT:
 [AI] I am Susan, an AI virtual assistant, so I'm always here to help you. No matter where you are, I'm here to answer your questions.  
 [human] okay what is the meaning of life?  
 [AI] The meaning of life is a complex question that has no single answer. Everyone has their own opinion on what life is all about. Some believe that life is about finding purpose and creating a life of meaning, while others believe that life is simply about experiencing joy and living in the moment. Ultimately, it's up to you to decide what the meaning of life is for you.
-```
-
 [human] Tell me more about it?
+```
 
 The <span style="color: gray">PRETEXT</span> defines a role or character for the conversational agent, or other
 wise define it's purpose. It is defined in a text file in the working directory with the file name of 'pretext.txt'. If one wants to omit a pretext (using GPT-3 essentially out of the box), the file can simply be omitted.

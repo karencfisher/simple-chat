@@ -121,7 +121,7 @@ GPT-3</b>. When that limit is reached, the earlier portions of the context are t
 </span>
 
 There is no need to have the model only behave as an AI assistant or chatbot. You can, for example, also have it perform language translation. (Don't
-expect a native accent -- it's French pronunciation is horrible!)
+expect a native accent -- its French pronunciation is horrible!)
 
 ```
 [AI] Bonjour

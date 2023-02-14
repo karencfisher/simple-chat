@@ -22,7 +22,7 @@ project.
 
 Use at your risk. ;) And if you do dare ;), and encounter any issue/bug/suggestion, feel free to open an issue. I'd appreciate the feedback.
 
-1) Clone this repository, and change to the new directory
+1) Clone this repository, and change to the new directory. (You will need to have LFS installed.)
 
 ```
 >>> git clone https://github.com/karencfisher/simple-chat.git

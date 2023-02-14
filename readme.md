@@ -6,7 +6,7 @@ Maybe the simplest voice chat with GPT-3 one can build? This is a project to bui
 
 <b>Update:</b> Changed both speech recognition engine to Vosk, and text to speech to pyttsx3. These are more efficient, resulting in less latency! Vosk performs
 speech recognition, for example, locally rather than incurring an additional API call to the cloud (such as Google Speech Recognition services). Pyttsx3 seems
-faster as well. On Windows it uses the SAPI for speech synthesis. For other platforms, you may need to install another service such as eSpeak. See the pyttstx3
+faster as well. On Windows it uses the SAPI for speech synthesis. For other platforms, you may need to install another synthesizer such as eSpeak. See the pyttstx3
 documentation for details.
 
 https://pyttsx3.readthedocs.io/en/latest/
@@ -16,13 +16,13 @@ https://pyttsx3.readthedocs.io/en/latest/
 <h2>Installation</h2>
 </span>
 
-As a development project, 'installation' consists of pulling down the source code and install the required dependencies. That is best done with a Python virtual
+As a development project, 'installation' consists of pulling down the source code and installing the required dependencies. That is best done within a Python virtual
 environment, so as to not possibly conflicting with other Python packages alread on one's system globally. This is the recommended practice for any such
 project.
 
 Use at your risk. ;) And if you do dare ;), and encounter any issue/bug/suggestion, feel free to open an issue. I'd appreciate the feedback.
 
-1) Clone this repository, and change to the new directory. (You will need to have LFS installed.)
+1) Clone this repository, and change to the new directory. (You will need to have git and LFS installed.)
 
 ```
 >>> git clone https://github.com/karencfisher/simple-chat.git

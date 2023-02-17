@@ -28,3 +28,11 @@ class Text2Speech:
       self.engine.say(text)
       self.engine.runAndWait()
 
+
+def test():
+   tts = Text2Speech()
+   tts.speak('hello, this is aboring test')
+
+if __name__ == '__main__':
+   test()
+   

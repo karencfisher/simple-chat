@@ -18,24 +18,26 @@ class SpeechRecognize:
 
     def speech_to_text(self):
         print('\rListening...      ', end='')
-        p = pyaudio.PyAudio()
-        stream = p.open(format=pyaudio.paInt16,
+        mic = pyaudio.PyAudio()
+        stream = mic.open(format=pyaudio.paInt16,
                         channels = self.config['channels'],
                         rate=self.config['rate'],
                         input=True,
-                        frames_per_buffer=self.config['chunk'])
-        frames = []
+                        frames_per_buffer=self.config['chunk'] * 2)
+        stream.start_stream()
 
-        for i in range(0, int(self.config['rate'] / self.config['chunk'] * 5)):
+        while True:
             data = stream.read(self.config['chunk'])
-            frames.append(data)
-
-        stream.stop_stream()
-        stream.close()
-        p.terminate()
-
-        audio = np.frombuffer(b''.join(frames), dtype=np.int16)
-        self.recognizer.AcceptWaveform(audio.tobytes())
-        result = json.loads(self.recognizer.Result())
+            if self.recognizer.AcceptWaveform(data):
+                result = json.loads(self.recognizer.Result())
+                break
         return result['text']
         
+
+def test():
+    sr = SpeechRecognize()
+    text = sr.speech_to_text()
+    print(text)
+
+if __name__ == '__main__':
+    test()

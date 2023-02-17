@@ -6,7 +6,7 @@ Maybe the simplest voice chat with GPT-3 one can build? This is a project to bui
 
 <b>Update:</b> Changed both speech recognition engine to Vosk, and text to speech to pyttsx3. These are more efficient, resulting in less latency! Vosk performs
 speech recognition, for example, locally rather than incurring an additional API call to the cloud (such as Google Speech Recognition services). Pyttsx3 seems
-faster as well. On Windows it uses the SAPI for speech synthesis. For other platforms, you may need to install another service such as eSpeak. See the pyttstx3
+faster as well. On Windows it uses the SAPI for speech synthesis. For other platforms, you may need to install another synthesizer such as eSpeak. See the pyttstx3
 documentation for details.
 
 https://pyttsx3.readthedocs.io/en/latest/
@@ -16,30 +16,30 @@ https://pyttsx3.readthedocs.io/en/latest/
 <h2>Installation</h2>
 </span>
 
-As a development project, 'installation' consists of pulling down the source code and install the required dependencies. That is best done with a Python virtual
+As a development project, 'installation' consists of pulling down the source code and installing the required dependencies. That is best done within a Python virtual
 environment, so as to not possibly conflicting with other Python packages alread on one's system globally. This is the recommended practice for any such
 project.
 
 Use at your risk. ;) And if you do dare ;), and encounter any issue/bug/suggestion, feel free to open an issue. I'd appreciate the feedback.
 
-1) Clone this repository, and change to the new directory
+1) Clone this repository, and change to the new directory. (You will need to have git and LFS installed.)
 
 ```
->>> git clone https://github.com/karencfisher/simple-chat.git
->>> cd simple-chat
+git clone https://github.com/karencfisher/simple-chat.git
+cd simple-chat
 ```
 
 2) Create a Python virtual environment and activate it, e.g., 
 
 ```
->>> python -m venv chat_env
->>> chat_env\scripts\activate
+python -m venv chat_env
+chat_env\scripts\activate
 ```
 
 3) Install dependencies using the requirements.txt file, e.g.,
 
 ```
->>> pip -r requirements.txt
+pip -r requirements.txt
 ```
 
 4) If you do not already have an account to use the OpenAI API, you will need to do so. You 
@@ -88,33 +88,31 @@ rolling conversation, in this form:
 PRETEXT:
 </span>
 
-"The following is a conversation with an AI assistant. The assistant is helpful, creative, 
-clever, and very friendly. The assistant's name is Susan." 
+```
+The following is a conversation with an AI assistant. The assistant is helpful, creative, 
+clever, and very friendly. The assistant's name is Susan.
+```
 
 <span style="color: gray">
 CONTEXT:
 </span>
 
+```
 [human] Hello Susan.  
-
 [AI] Hello, what can I do for you today?  
-
 [human] Why don't you tell us who you are?  
-
 [AI] I am Susan, an AI virtual assistant, so I'm always here to help you. No matter where you are, I'm here to answer your questions.  
-
 [human] okay what is the meaning of life?  
-
 [AI] The meaning of life is a complex question that has no single answer. Everyone has their own opinion on what life is all about. Some believe that life is about finding purpose and creating a life of meaning, while others believe that life is simply about experiencing joy and living in the moment. Ultimately, it's up to you to decide what the meaning of life is for you.
-
 [human] Tell me more about it?
+```
 
 The <span style="color: gray">PRETEXT</span> defines a role or character for the conversational agent, or other
 wise define it's purpose. It is defined in a text file in the working directory with the file name of 'pretext.txt'. If one wants to omit a pretext (using GPT-3 essentially out of the box), the file can simply be omitted.
 
 The <span style="color: gray">CONTEXT</span> then is the rolling, recent conversation. 
 
-The total length of this altogether, which becomes the next prompt to the model.
+The two portions of text are concatenated becoming the next prompt to the model.
 <b>The total combination of pretext and context cannot exceed 2048 tokens, which is the input limit for
 GPT-3</b>. When that limit is reached, the earlier portions of the context are truncated.<br>
 
@@ -123,7 +121,7 @@ GPT-3</b>. When that limit is reached, the earlier portions of the context are t
 </span>
 
 There is no need to have the model only behave as an AI assistant or chatbot. You can, for example, also have it perform language translation. (Don't
-expect a native accent -- it's French pronunciation is horrible!)
+expect a native accent -- its French pronunciation is horrible!)
 
 ```
 [AI] Bonjour
@@ -147,7 +145,7 @@ to perform few-shot learning on new tasks.
 Run
 
 ```
->>> python gpt_chat.py
+python gpt_chat.py
 ```
 
 The program will initialize the speech rocognition and synthesis modules, and GPT-3 will greet you. Talk with GPT-3. Say "goodbye" to exit.

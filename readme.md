@@ -50,7 +50,8 @@ pip -r requirements.txt
 will initially have $18 credit for usage, which is good for 3 months. If you have used the
 free credits or they have expired after 3 months (which ever happens first), you will need to 
 set up a paid account. Text generation, for the largest GPT-3 model DaVinci-0003,
-costs $0.02/thousand tokens (about 750 words on average).
+costs $0.02/thousand tokens (about 750 words on average). (Using ChatGPT will only set you
+back $0.002/thousand tokens, one tenth the cost of using the best GPT-3 model.)
 
 https://openai.com/api/
 

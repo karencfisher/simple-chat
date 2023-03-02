@@ -10,7 +10,7 @@ faster as well. On Windows it uses the SAPI for speech synthesis. For other plat
 documentation for details.
 
 <b>Update 3/2/2023</b> Now OpenAI has exposed an API for ChatGPT, we've now added an alternative application
-to use it. The same prestext file is used as the initial prompting for the system. The configuration
+to use it. The same pretext file is used as the initial prompting for the system. The configuration
 file for ChatGPT is chatgpt_config.json. The application to run is ChatGPT.py
 
 https://pyttsx3.readthedocs.io/en/latest/

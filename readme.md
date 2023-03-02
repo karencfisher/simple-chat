@@ -9,7 +9,7 @@ speech recognition, for example, locally rather than incurring an additional API
 faster as well. On Windows it uses the SAPI for speech synthesis. For other platforms, you may need to install another synthesizer such as eSpeak. See the pyttstx3
 documentation for details.
 
-<b>Update 3/2/2023</b> Now OpenAI has exposed an API for ChatGPT, we've now added an alternative application
+<b>Update 3/1/2023</b> Now OpenAI has released an API for ChatGPT (today, in fact!), we've now added an application
 to use it. The same pretext file is used as the initial prompting for the system. The configuration
 file for ChatGPT is chatgpt_config.json. The application to run is ChatGPT.py
 

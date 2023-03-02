@@ -1,5 +1,5 @@
 <span style="color: gray">
-<h1>Simple voice chat with GPT-3</h1>
+<h1>Simple voice chat with GPT-3 or ChatGPT</h1>
 </span>
 
 Maybe the simplest voice chat with GPT-3 one can build? This is a project to build a voice interface for GPT-3, which can be used as a chatbot or for other purposes. Using SpeechRecognition to convert speech to text (using the Google speech recongition engine), passing the text to GPT-3 via the OpenAI API, and then converting the resulting text to speech using Coqui TTS and simple audio. The use case is defined by providing a prompt as a "pretext," which merely needs to be saved in a text file. 
@@ -8,6 +8,10 @@ Maybe the simplest voice chat with GPT-3 one can build? This is a project to bui
 speech recognition, for example, locally rather than incurring an additional API call to the cloud (such as Google Speech Recognition services). Pyttsx3 seems
 faster as well. On Windows it uses the SAPI for speech synthesis. For other platforms, you may need to install another synthesizer such as eSpeak. See the pyttstx3
 documentation for details.
+
+<b>Update 3/2/2023</b> Now OpenAI has exposed an API for ChatGPT, we've now added an alternative application
+to use it. The same prestext file is used as the initial prompting for the system. The configuration
+file for ChatGPT is chatgpt_config.json. The application to run is ChatGPT.py
 
 https://pyttsx3.readthedocs.io/en/latest/
 
@@ -64,11 +68,14 @@ SECRET_KEY = '<your secret key>'
 <h2>Configuration</h2>
 </span>
 
-There are three configuration files:
+There are four configuration files:
 
 gpt3_config.json: where you can set the specific engine, temperature, and max_tokens. Changing the temperature will change the
 randomness or variation in of the model's responses. The lower the temperature, the less 'creative' it will be in its responses, 
 and it may be more repetitive. The higher, the more 'creative' it may be.
+
+chatgpt_config.json:
+similar configuration for ChatGPT, except for not specifying the model being used.
 
 vosk_config.json: settings for vosk speech recognition. These have technical details like bit rate and buffer sizes, and likely
 won't need to be change often. But they are exposed for the brave.
@@ -146,6 +153,12 @@ Run
 
 ```
 python gpt_chat.py
+```
+
+Or, for the ChatGPT application, run
+
+```
+python ChatGPT.py
 ```
 
 The program will initialize the speech rocognition and synthesis modules, and GPT-3 will greet you. Talk with GPT-3. Say "goodbye" to exit.

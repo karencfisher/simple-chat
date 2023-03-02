@@ -1,5 +1,5 @@
 '''
-Maintain context buffer.
+Maintain context buffer for ChatGPT.
 
 There are two sections:
 

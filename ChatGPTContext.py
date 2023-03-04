@@ -48,7 +48,7 @@ class Context:
 
     def add(self, role, text, n_tokens=None):
         '''
-        Add text to context, overloads the addition operator
+        Add token count, role, and content to the context
 
         Input: new text
         '''

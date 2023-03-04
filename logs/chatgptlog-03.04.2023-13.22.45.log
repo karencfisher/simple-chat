@@ -1,0 +1,18 @@
+Imported existing <module 'comtypes.gen' from 'C:\\Users\\karen\\myprojects\\simple-chat\\chat_env\\lib\\site-packages\\comtypes\\gen\\__init__.py'>
+Using writeable comtypes cache directory: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen'
+*Begin log*
+
+["Human"] hello
+["AI"] Hello Karen! How are you doing today?
+["Human"] i'm doing fine thank you
+["AI"] Hello again! Is there anything you would like to chat about today?
+["Human"] can i ask you a question
+["AI"] Hi Karen! How can I assist you today?
+["Human"] tell me more about yourself
+["AI"] Hello again! Is there anything you would like to chat about today?
+["Human"] why are you so stuck
+["AI"] Hello! How can I assist you today?
+["Human"] goodbye
+["AI"] Hello Karen! How can I assist you today?
+
+*End log*

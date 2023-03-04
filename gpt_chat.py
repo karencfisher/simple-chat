@@ -53,6 +53,7 @@ class GPTChat:
         text = 'hello'
         while True:
             # update context and get prompt
+            self.logger.info(f'[human] {text}')
             self.context + text
             prompt = self.context.get_prompt()
 
@@ -70,7 +71,6 @@ class GPTChat:
 
             # Listen for user input
             text = self.recog.speech_to_text()
-            self.logger.info(f'[human] {text}')
 
         self.logger.info('\n*End log*')
         print('\rExiting...')
@@ -104,6 +104,7 @@ def main():
     logger = logging.getLogger()
 
     # If pretext file exists, load it
+    pretext = ''
     if os.path.exists('pretext.txt'):
         with open('pretext.txt', 'r') as PRETEXT:
             pretext = PRETEXT.read()

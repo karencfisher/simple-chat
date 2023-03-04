@@ -37,6 +37,11 @@ class ChatGPT:
             self.config = json.load(FP)
 
         # set up context
+        user_name = self.config.get('user')
+        if user_name is not None:
+            pretext += f' You are speaking with {user_name}.'
+
+        self.ai = self.config.get('assistant', 'assistant')
         self.context = Context(response_tokens=self.config['max_tokens'], 
                                pretext=pretext)
 
@@ -53,16 +58,16 @@ class ChatGPT:
         text = 'hello'
         while True:
             # update context and get prompt
-            self.logger.info(f'[human] {text}')
-            self.context.add('user', text)
+            self.logger.info(f'["Human"] {text}')
+            self.context.add(role='user', text=text)
 
             # send prompt to GPT-3
             prompt = self.context.get_prompt()
             ai_text, n_tokens = self.__prompt_gpt(prompt)
 
             # speak and log response
-            self.tts.speak(text)
-            self.logger.info(f'[AI] {text.strip()}')
+            self.tts.speak(ai_text)
+            self.logger.info(f'["AI"] {ai_text.strip()}')
             self.context.add(role='assistant',
                              text=ai_text, 
                              n_tokens=n_tokens)
@@ -104,7 +109,7 @@ class ChatGPT:
 def main():
     # initialize logging
     now = datetime.now()
-    logfile = f'chatlog-{now.strftime("%m.%d.%Y-%H.%M.%S")}.log'
+    logfile = f'chatgptlog-{now.strftime("%m.%d.%Y-%H.%M.%S")}.log'
     logpath = os.path.join('logs', logfile)
     logging.basicConfig(filename=logpath, 
                         level=logging.INFO, 
@@ -112,8 +117,9 @@ def main():
     logger = logging.getLogger()
 
     # If pretext file exists, load it
-    if os.path.exists('pretext.txt'):
-        with open('pretext.txt', 'r') as PRETEXT:
+    pretext = ''
+    if os.path.exists('chat_pretext.txt'):
+        with open('chat_pretext.txt', 'r') as PRETEXT:
             pretext = PRETEXT.read()
             pretext = pretext.replace('\n', ' ')
 

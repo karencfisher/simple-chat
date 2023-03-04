@@ -13,7 +13,8 @@ https://pyttsx3.readthedocs.io/en/latest/
 
 <b>Update 3/1/2023</b> Now OpenAI has released an API for ChatGPT (today, in fact!), we've now added an application
 to use it. The same pretext file is used as the initial prompting for the system. The configuration
-file for ChatGPT is chatgpt_config.json. The application to run is ChatGPT.py
+file for ChatGPT is chatgpt_config.json, and the system prompt is in a separate text file (chat_pretext.txt).
+The application to run is ChatGPT.py
 
 
 <span style="color: gray">
@@ -76,7 +77,14 @@ randomness or variation in of the model's responses. The lower the temperature, 
 and it may be more repetitive. The higher, the more 'creative' it may be.
 
 chatgpt_config.json:
-similar configuration for ChatGPT, except for not specifying the model being used.
+similar configuration for ChatGPT, except for not specifying the model being used. You can also
+personalize your chatbot by telling it your name, e.g.,
+
+```
+"user": "karen"
+```
+
+The chatbot will then address you by name.
 
 vosk_config.json: settings for vosk speech recognition. These have technical details like bit rate and buffer sizes, and likely
 won't need to be change often. But they are exposed for the brave.
@@ -116,7 +124,7 @@ CONTEXT:
 ```
 
 The <span style="color: gray">PRETEXT</span> defines a role or character for the conversational agent, or other
-wise define it's purpose. It is defined in a text file in the working directory with the file name of 'pretext.txt'. If one wants to omit a pretext (using GPT-3 essentially out of the box), the file can simply be omitted.
+wise define it's purpose. It is defined in a text file in the working directory with the file name of 'pretext.txt' ('chat_pretext.txt' for ChatGPT). If one wants to omit a pretext (using the AI essentially out of the box), the file can simply be omitted.
 
 The <span style="color: gray">CONTEXT</span> then is the rolling, recent conversation. 
 

@@ -33,15 +33,11 @@ class ChatGPT:
         # Initialize TTS
         self.tts = Text2Speech()
 
+        # get configuration
         with open('chatgpt_config.json', 'r') as FP:
             self.config = json.load(FP)
 
         # set up context
-        user_name = self.config.get('user')
-        if user_name is not None:
-            pretext += f' You are speaking with {user_name}.'
-
-        self.ai = self.config.get('assistant', 'assistant')
         self.context = Context(response_tokens=self.config['max_tokens'], 
                                pretext=pretext)
 
@@ -121,7 +117,12 @@ def main():
     if os.path.exists('chat_pretext.txt'):
         with open('chat_pretext.txt', 'r') as PRETEXT:
             pretext = PRETEXT.read()
-            pretext = pretext.replace('\n', ' ')
+
+    # set up profile (if exists) and concatenate to pretext
+    if os.path.exists("chat_user_profile.txt"):
+        with open('chat_user_profile.txt', 'r') as FP:
+            profile = FP.read()
+        pretext += f'\n\nUser profile:\n{profile}'
 
     # Inistantiate GPTChat and run loop
     print('Initializing...', end='')

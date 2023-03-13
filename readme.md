@@ -1,5 +1,5 @@
 <span style="color: gray">
-<h1>Simple voice chat with GPT-3 or ChatGPT</h1>
+<h1>Simple voice chat with GPT-3</h1>
 </span>
 
 Maybe the simplest voice chat with GPT-3 one can build? This is a project to build a voice interface for GPT-3, which can be used as a chatbot or for other purposes. Using SpeechRecognition to convert speech to text (using the Google speech recongition engine), passing the text to GPT-3 via the OpenAI API, and then converting the resulting text to speech using Coqui TTS and simple audio. The use case is defined by providing a prompt as a "pretext," which merely needs to be saved in a text file. 
@@ -10,12 +10,6 @@ faster as well. On Windows it uses the SAPI for speech synthesis. For other plat
 documentation for details.
 
 https://pyttsx3.readthedocs.io/en/latest/
-
-<b>Update 3/1/2023</b> Now OpenAI has released an API for ChatGPT (today, in fact!), we've now added an application
-to use it. The same pretext file is used as the initial prompting for the system. The configuration
-file for ChatGPT is chatgpt_config.json, and the system prompt is in a separate text file (chat_pretext.txt).
-The application to run is ChatGPT.py
-
 
 <span style="color: gray">
 <h2>Installation</h2>
@@ -76,16 +70,6 @@ gpt3_config.json: where you can set the specific engine, temperature, and max_to
 randomness or variation in of the model's responses. The lower the temperature, the less 'creative' it will be in its responses, 
 and it may be more repetitive. The higher, the more 'creative' it may be.
 
-chatgpt_config.json:
-similar configuration for ChatGPT, except for not specifying the model being used. You can also
-personalize your chatbot by telling it your name, e.g.,
-
-```
-"user": "karen"
-```
-
-The chatbot will then address you by name.
-
 vosk_config.json: settings for vosk speech recognition. These have technical details like bit rate and buffer sizes, and likely
 won't need to be change often. But they are exposed for the brave.
 
@@ -124,7 +108,7 @@ CONTEXT:
 ```
 
 The <span style="color: gray">PRETEXT</span> defines a role or character for the conversational agent, or other
-wise define it's purpose. It is defined in a text file in the working directory with the file name of 'pretext.txt' ('chat_pretext.txt' for ChatGPT). If one wants to omit a pretext (using the AI essentially out of the box), the file can simply be omitted.
+wise define it's purpose. It is defined in a text file in the working directory with the file name of 'pretext.txt' . If one wants to omit a pretext (using the AI essentially out of the box), the file can simply be omitted.
 
 The <span style="color: gray">CONTEXT</span> then is the rolling, recent conversation. 
 
@@ -162,12 +146,6 @@ Run
 
 ```
 python gpt_chat.py
-```
-
-Or, for the ChatGPT application, run
-
-```
-python ChatGPT.py
 ```
 
 The program will initialize the speech rocognition and synthesis modules, and GPT-3 will greet you. Talk with GPT-3. Say "goodbye" to exit.

@@ -11,7 +11,7 @@ documentation for details.
 
 https://pyttsx3.readthedocs.io/en/latest/
 
-Update: migrated from using the GPT-3 API to the chatGPT API, which is less costly to use.
+<b>Update:</b> migrated from using the GPT-3 API to the chatGPT API, which is less costly to use.
 
 <span style="color: gray">
 <h2>Installation</h2>
@@ -50,7 +50,7 @@ set up a paid account.
 
 The costs are:
 
-**For gpt-3.5-turbo (ChatGPT)**, chat costs $0.002/1000 tokens (about750 words), for each message. 
+**For gpt-3.5-turbo (ChatGPT)**, chat costs $0.002/1000 tokens (about750 words), for each message.  
 **For GPT-4** (which can be used also with the application), chat costs $0.03/1000
 prompt tokens, and $0.06/1000 completions tokens, for each message.
 

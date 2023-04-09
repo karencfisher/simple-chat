@@ -1,34 +1,33 @@
 '''
-Maintain context buffer.
+Maintain context buffer for ChatGPT.
 
 There are two sections:
 
 PRETEXT: a description of the chatbot
 CONTEXT: the current conversation
 
-The maximum length of the buffer is 2048 tokens. When it reaches 
-that limit, earlier tokens of the CONTEXT is truncated. The PRETEXT 
-is not changed
-
-The number of tokens is obtained using the tiktoken module. Basically,
-we tokenize the buffer, get the number of tokens, truncates the
-CONTEXT portion of it, and changes back to text.
+The maximum length of the buffer is 4096 tokens. We will deduct the
+length of the pretext, and the maximum tokens for a response. When
+queried for the current context, will will return messages from
+the most recent until fitting within the difference.
 
 '''
 import tiktoken as tt
 
 
 class Context:
-    def __init__(self, pretext='', max_tokens=2048):
-        self.__context = ''
+    def __init__(self, pretext, num_response_tokens=128, max_context_tokens=4096):
+        self.__max_context_tokens = max_context_tokens
+        self.__num_response_tokens = num_response_tokens
+        self.__context = []
+        self.__pretext = []
 
-        # Store pretext and it's length in tokens
+        # get system prompt (pretext)
         self.__encoder = tt.get_encoding('p50k_base')
-        self.__pretext = pretext + '\n'
-        pretext_enc = self.__encoder.encode(pretext)
-
-        # Store maximum number of tokens in the context
-        self.__max_context = max_tokens - len(pretext_enc)
+        self.__num_pretext_tokens = len(self.__encoder.encode(pretext))
+        self.__pretext.append({'role': 'system', 'content': pretext})
+        self.__max_conv = (self.__max_context_tokens - 
+                           (self.__num_pretext_tokens + self.__num_response_tokens))
 
     def get_prompt(self):
         '''
@@ -37,23 +36,30 @@ class Context:
         '''
         # encode the context, and truncate early portion as needed
         # to keep within limit
-        encoded = self.__encoder.encode(self.__context)
-        trunc = encoded[-self.__max_context:]
-
-        # translate back to text
-        decoded = [self.__encoder.decode_single_token_bytes(token) 
-                   for token in trunc]
-        self.__context = ''.join([token.decode() for token in decoded])
+        n_tokens = 0
+        context = []
+        for indx in range(len(self.__context) - 1, -1, -1):
+            n_tokens += self.__context[indx]['n_tokens']
+            if n_tokens >= self.__max_conv:
+                break
+            context.append(self.__context[indx]['message'])
 
         # return concatenated pretext and context
-        return self.__pretext + self.__context
+        return self.__pretext + context[::-1]
 
-    def __add__(self, text):
+    def add(self, role, text, n_tokens=None):
         '''
-        Add text to context, overloads the addition operator
+        Add token count, role, and content to the context
 
         Input: new text
         '''
         if len(text) > 0:
-            self.__context += text + '\n'
+            # if not passed, estimate number of tokens
+            if n_tokens is None:
+                n_tokens = len(self.__encoder.encode(text))
+
+            # assemble message and add to appropriate list
+            message = {'n_tokens': n_tokens, 
+                       'message': {'role': role, 'content': text}}
+            self.__context.append(message)
 

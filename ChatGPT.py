@@ -34,8 +34,8 @@ class ChatGPT:
         
         if self.config['provider'] == 'openai':
             self.provider = openai
-        elif self.config['provider'] == 'gpt4all':
-            self.provider = gpt4all.GPT4ALL(self.config['model'])
+        # elif self.config['provider'] == 'gpt4all':
+        #     self.provider = gpt4all.GPT4ALL(self.config['model'])
         else:
             raise ValueError('Invalid provider choice')
 

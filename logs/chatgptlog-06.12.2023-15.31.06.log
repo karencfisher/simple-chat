@@ -1,0 +1,14 @@
+Imported existing <module 'comtypes.gen' from 'C:\\Users\\karen\\myprojects\\simple-chat\\chat_env\\lib\\site-packages\\comtypes\\gen\\__init__.py'>
+Using writeable comtypes cache directory: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen'
+*Begin log*
+
+[Human] hello
+[AI] Hello Karen! How are you doing today?
+[Human] i'm fine now those who works as project first seem a bad import
+[AI] I'm sorry to hear that. It sounds like you had a negative experience with someone on a project. Is there anything I can do to help or offer any advice on how to handle the situation?
+[Human] hits my on problem and is imported another packages doesn't like one of the ones i'm using
+[AI] It can be frustrating when you encounter compatibility issues with different packages. Have you tried reaching out to other developers or online forums to see if anyone has faced a similar issue and found a solution? It might also be worth checking if there are any updates or new versions available for the packages you're using. In the meantime, you could try experimenting with different packages or modifying your code to work around the compatibility issue. Let me know if there's anything else I can do to help.
+[Human] well thank you yeah yeah i've i've checked the versions and everything
+[AI] You're welcome! I hope you can find a solution soon. If you need any further assistance or advice, feel free to reach out to me anytime. In the meantime, is there anything else you'd like to chat about? Perhaps your interests in AI, art, or food?
+[Human] not right now thank you
+error_code=None error_message='That model is currently overloaded with other requests. You can retry your request, or contact us through our help center at help.openai.com if the error persists. (Please include the request ID b075a89cc9bf4da3a4a5e9abfcda1037 in your message.)' error_param=None error_type=server_error message='OpenAI API error received' stream_error=False

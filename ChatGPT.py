@@ -14,6 +14,7 @@ import json
 import logging
 from datetime import datetime
 import openai
+# import gpt4all
 from dotenv import load_dotenv
 
 from context import Context
@@ -30,6 +31,13 @@ class ChatGPT:
         # get configuration
         with open('chat_config.json', 'r') as FP:
             self.config = json.load(FP)
+        
+        if self.config['provider'] == 'openai':
+            self.provider = openai
+        elif self.config['provider'] == 'gpt4all':
+            self.provider = gpt4all.GPT4ALL(self.config['model'])
+        else:
+            raise ValueError('Invalid provider choice')
 
         # intialize speech recognition
         self.recog = SpeechRecognize()
@@ -45,7 +53,9 @@ class ChatGPT:
            profile = PROFILE.read()
         self.pretext += 'User profile:\n\n' + profile
 
-        self.context = Context(self.pretext, num_response_tokens=self.config['max_tokens'])
+        self.context = Context(self.pretext, 
+                               num_response_tokens=self.config['max_tokens'],
+                               max_context_tokens=self.config['max_context'])
 
         # start log
         self.logger = logger
@@ -96,9 +106,11 @@ class ChatGPT:
         if self.config['model'] == 'gpt-3.5-turbo':
             cost = (self.prompt_tokens_used + self.completion_tokens_used)/\
                    1000 * .002
-        else:
+        elif self.config['model'] == "gpt-4":
             cost = self.prompt_tokens_used / 1000 * .03 + \
                    self.completion_tokens_used / 1000 * .06
+        else:
+            cost = 0.0
         print(f'Prompt tokens used: {self.prompt_tokens_used}')
         print(f'Completion tokens used: {self.completion_tokens_used}')
         print(f'Total price: ${cost: .3f}')
@@ -111,17 +123,27 @@ class ChatGPT:
         Returns: text from the model
         '''
         print('\rWaiting...     ', end='')
-        openai.api_key = self.secret_key
-        response = openai.ChatCompletion.create(
-            model=self.config['model'],
-            messages=prompt,
-            max_tokens=self.config['max_tokens'],
-            temperature=self.config['temperature'],
-            top_p=self.config['top_p'],
-            n=self.config['n'],
-            presence_penalty=self.config['presence_penalty'],
-            frequency_penalty=self.config['frequency_penalty']
-        )
+        if self.config['provider'] == 'openai':
+            self.provider.api_key = self.secret_key
+
+        if self.config['provider'] == 'openai':
+            response = self.provider.ChatCompletion.create(
+                model=self.config['model'],
+                messages=prompt,
+                max_tokens=self.config['max_tokens'],
+                temperature=self.config['temperature'],
+                top_p=self.config['top_p'],
+                n=self.config['n'],
+                presence_penalty=self.config['presence_penalty'],
+                frequency_penalty=self.config['frequency_penalty']
+            )
+        elif self.config['provider'] == 'gpt4all':
+            response = self.provider.chat_completion(
+                messages=prompt
+            )
+        else:
+            raise ValueError('Invalid provider')
+
         text = response.choices[0].message.content
         n_tokens = response.usage.completion_tokens
         self.prompt_tokens_used += response.usage.prompt_tokens

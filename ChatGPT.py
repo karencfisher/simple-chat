@@ -10,20 +10,22 @@ to reply, and then the program exits.
 
 '''
 import os
+import sys
 import json
 import logging
 from datetime import datetime
 import openai
-# import gpt4all
+# from gpt4all import GPT4ALL
 from dotenv import load_dotenv
 
 from context import Context
 from vosk_recognizer import SpeechRecognize
 from tts import Text2Speech
+from ui import STDIO
 
 
 class ChatGPT:
-    def __init__(self, logger):
+    def __init__(self, logger, ui=STDIO):
         # fetch API key from environment
         load_dotenv()
         self.secret_key = os.getenv('SECRET_KEY')
@@ -34,16 +36,18 @@ class ChatGPT:
         
         if self.config['provider'] == 'openai':
             self.provider = openai
-        # elif self.config['provider'] == 'gpt4all':
-        #     self.provider = gpt4all.GPT4ALL(self.config['model'])
+        elif self.config['provider'] == 'gpt4all':
+            self.provider = GPT4ALL(self.config['model'])
         else:
             raise ValueError('Invalid provider choice')
 
         # intialize speech recognition
-        self.recog = SpeechRecognize()
+        # self.recog = SpeechRecognize()
 
         # Initialize TTS
         self.tts = Text2Speech()
+
+        self.ui = ui()
 
         # get system prompt
         with open('chat_system_prompt.txt', 'r') as PRETEXT:
@@ -64,7 +68,7 @@ class ChatGPT:
         self.prompt_tokens_used = 0
         self.completion_tokens_used = 0
 
-    def loop(self):
+    def loop(self, voice=True):
         '''
         The main loop
 
@@ -82,7 +86,12 @@ class ChatGPT:
             ai_text, n_tokens = self.__prompt_gpt(prompt)
     
             # speak and log response
-            self.tts.speak(ai_text)
+            if voice:
+                self.tts.speak(ai_text)
+            else:
+                self.ui.output(ai_text)
+
+
             self.logger.info(f'[AI] {ai_text}')
 
             # update context. If first two iterations, store as pretext
@@ -96,7 +105,10 @@ class ChatGPT:
                 break
 
             # Listen for user input
-            text = self.recog.speech_to_text()
+            if voice:
+                text = self.recog.speech_to_text()
+            else:
+                text = self.ui.input()
 
         self.logger.info('\n*End log*')
 
@@ -152,6 +164,14 @@ class ChatGPT:
 
 
 def main():
+    voice = True
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'novoice':
+            voice=False
+        else:
+            print(f'Unrecognized argument {sys.argv[1]}')
+            return
+
     # initialize logging
     now = datetime.now()
     logfile = f'chatgptlog-{now.strftime("%m.%d.%Y-%H.%M.%S")}.log'
@@ -164,7 +184,7 @@ def main():
     # Inistantiate GPTChat and run loop
     print('Initializing...', end='')
     gpt_chat = ChatGPT(logger)
-    gpt_chat.loop()
+    gpt_chat.loop(voice=voice)
 
 
 if __name__ == '__main__':

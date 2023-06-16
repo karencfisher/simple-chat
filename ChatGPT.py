@@ -16,6 +16,7 @@ import logging
 from datetime import datetime
 import openai
 # import gpt4all
+import google.generativeai as palm
 from dotenv import load_dotenv
 
 from context import Context
@@ -26,18 +27,23 @@ from ui import STDIO
 
 class ChatGPT:
     def __init__(self, logger, ui=STDIO):
+        self.ui = ui()
+
         # fetch API key from environment
         load_dotenv()
-        self.secret_key = os.getenv('SECRET_KEY')
-
+        
         # get configuration
         with open('chat_config.json', 'r') as FP:
             self.config = json.load(FP)
         
         if self.config['provider'] == 'openai':
-            self.provider = openai
+            secret_key = os.getenv('OPENAI_SECRET_KEY')
+            openai.api_key = secret_key
         elif self.config['provider'] == 'gpt4all':
-            self.provider = gpt4all.GPT4All(self.config['model'])
+            self.gpt4all = gpt4all.GPT4All(self.config['model'])
+        elif self.config['provider'] == 'PaLM':
+            secret_key = os.getenv('PALM_SECRET_KEY')
+            palm.configure(api_key=secret_key)
         else:
             raise ValueError('Invalid provider choice')
 
@@ -46,8 +52,6 @@ class ChatGPT:
 
         # Initialize TTS
         self.tts = Text2Speech()
-
-        self.ui = ui()
 
         # get system prompt
         with open('chat_system_prompt.txt', 'r') as PRETEXT:
@@ -79,7 +83,9 @@ class ChatGPT:
         while True:
             # update context and get prompt
             self.logger.info(f'[Human] {text}')
-            self.context.add(role='user', text=text)
+            self.context.add(role='user', 
+                             text=text, 
+                             provider=self.config['provider'])
 
             # send prompt to GPT-3.5
             prompt = self.context.get_prompt()
@@ -98,6 +104,7 @@ class ChatGPT:
             # (pinned messages). 
             self.context.add(role='assistant',
                             text=ai_text,
+                            provider=self.config['provider'],
                             n_tokens=n_tokens)
 
             # See if user said goodbye
@@ -135,11 +142,9 @@ class ChatGPT:
         Returns: text from the model
         '''
         print('\rWaiting...     ', end='')
-        if self.config['provider'] == 'openai':
-            self.provider.api_key = self.secret_key
 
         if self.config['provider'] == 'openai':
-            response = self.provider.ChatCompletion.create(
+            response = openai.ChatCompletion.create(
                 model=self.config['model'],
                 messages=prompt,
                 max_tokens=self.config['max_tokens'],
@@ -152,6 +157,7 @@ class ChatGPT:
             text = response.choices[0].message.content
             completion_tokens = response.usage.completion_tokens
             prompt_tokens = response.usage.prompt_tokens
+
         elif self.config['provider'] == 'gpt4all':
             response = self.provider.chat_completion(
                 messages=prompt,
@@ -161,6 +167,20 @@ class ChatGPT:
             text = response['choices'][0]['message']['content']
             completion_tokens = response['usage']['completion_tokens']
             prompt_tokens = response['usage']['prompt_tokens']
+
+        elif self.config['provider'] == 'PaLM':
+            response = palm.chat(
+                model=self.config['model'],
+                context=self.pretext,
+                messages=prompt[1:],
+                temperature=self.config['temperature'],
+                top_p=self.config['top_p'],
+                top_k=self.config['top_k'],
+            )
+            text = response.last
+            completion_tokens = 0
+            prompt_tokens = 0
+
         else:
             raise ValueError('Invalid provider')
         

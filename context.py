@@ -47,7 +47,7 @@ class Context:
         # return concatenated pretext and context
         return self.__pretext + context[::-1]
 
-    def add(self, role, text, n_tokens=None):
+    def add(self, role, text, provider='openai', n_tokens=None):
         '''
         Add token count, role, and content to the context
 
@@ -59,7 +59,14 @@ class Context:
                 n_tokens = len(self.__encoder.encode(text))
 
             # assemble message and add to appropriate list
-            message = {'n_tokens': n_tokens, 
-                       'message': {'role': role, 'content': text}}
+            if provider in ['openai', 'gpt4all']:
+                message = {'n_tokens': n_tokens, 
+                        'message': {'role': role, 'content': text}}
+            elif provider == 'PaLM':
+                message = {'n_tokens': n_tokens, 
+                        'message': {'author': role, 'content': text}}
+            else:
+                raise ValueError('Unknown provider')
+
             self.__context.append(message)
 

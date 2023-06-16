@@ -15,7 +15,7 @@ import json
 import logging
 from datetime import datetime
 import openai
-# from gpt4all import GPT4ALL
+# import gpt4all
 from dotenv import load_dotenv
 
 from context import Context
@@ -37,12 +37,12 @@ class ChatGPT:
         if self.config['provider'] == 'openai':
             self.provider = openai
         elif self.config['provider'] == 'gpt4all':
-            self.provider = GPT4ALL(self.config['model'])
+            self.provider = gpt4all.GPT4All(self.config['model'])
         else:
             raise ValueError('Invalid provider choice')
 
         # intialize speech recognition
-        # self.recog = SpeechRecognize()
+        self.recog = SpeechRecognize()
 
         # Initialize TTS
         self.tts = Text2Speech()
@@ -149,18 +149,24 @@ class ChatGPT:
                 presence_penalty=self.config['presence_penalty'],
                 frequency_penalty=self.config['frequency_penalty']
             )
+            text = response.choices[0].message.content
+            completion_tokens = response.usage.completion_tokens
+            prompt_tokens = response.usage.prompt_tokens
         elif self.config['provider'] == 'gpt4all':
             response = self.provider.chat_completion(
-                messages=prompt
+                messages=prompt,
+                verbose=False,
+                streaming=False
             )
+            text = response['choices'][0]['message']['content']
+            completion_tokens = response['usage']['completion_tokens']
+            prompt_tokens = response['usage']['prompt_tokens']
         else:
             raise ValueError('Invalid provider')
-
-        text = response.choices[0].message.content
-        n_tokens = response.usage.completion_tokens
-        self.prompt_tokens_used += response.usage.prompt_tokens
-        self.completion_tokens_used += n_tokens
-        return text, n_tokens
+        
+        self.prompt_tokens_used += prompt_tokens
+        self.completion_tokens_used += completion_tokens
+        return text, completion_tokens
 
 
 def main():

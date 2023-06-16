@@ -96,12 +96,9 @@ class ChatGPT:
                 self.tts.speak(ai_text)
             else:
                 self.ui.output(ai_text)
-
-
             self.logger.info(f'[AI] {ai_text}')
 
-            # update context. If first two iterations, store as pretext
-            # (pinned messages). 
+            # update context. 
             self.context.add(role='assistant',
                             text=ai_text,
                             provider=self.config['provider'],
@@ -117,9 +114,8 @@ class ChatGPT:
             else:
                 text = self.ui.input()
 
-        self.logger.info('\n*End log*')
-
         # finishing up
+        self.logger.info('\n*End log*')
         print('\rExiting...')
 
         if self.config['model'] == 'gpt-3.5-turbo':
@@ -159,7 +155,7 @@ class ChatGPT:
             prompt_tokens = response.usage.prompt_tokens
 
         elif self.config['provider'] == 'gpt4all':
-            response = self.provider.chat_completion(
+            response =  self.gpt4all.chat_completion(
                 messages=prompt,
                 verbose=False,
                 streaming=False

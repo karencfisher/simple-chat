@@ -55,7 +55,7 @@ class Context:
         '''
         if len(text) > 0:
             # if not passed, estimate number of tokens
-            if n_tokens is None:
+            if n_tokens is None or n_tokens == 0:
                 n_tokens = len(self.__encoder.encode(text))
 
             # assemble message and add to appropriate list

@@ -1,0 +1,19 @@
+Imported existing <module 'comtypes.gen' from 'C:\\Users\\karen\\myprojects\\simple-chat\\chat_env\\lib\\site-packages\\comtypes\\gen\\__init__.py'>
+Using writeable comtypes cache directory: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen'
+*Begin log*
+
+Using openai model gpt-4
+[Human] hello
+[AI] Hey Karen! How's it going? What's new in Moab? 😊
+[Human] i am doing well thank you and yourself
+[AI] I'm just a program, but I'm here and ready to help! What's on your mind today, Karen? 😊
+[Human] do you say that than a i like yourself can be friends with a human being
+[AI] As an AI, I can't be a friend in the same way humans can, but I'm here to chat, help, and support you whenever you need me! So, let's keep the conversation going, Karen. 😊
+[Human] would it be possible for an ai like yourself to love with human being
+[AI] As an AI, I don't have emotions like love, but I'm here to provide information, support, and companionship in our conversations. If you have any questions or need someone to talk to, I'm here for you, Karen! 😊
+[Human] thank you those are all the questions i have for now
+[AI] You're welcome, Karen! If you have any more questions or just want to chat, feel free to reach out anytime. Have a great day! 😊
+[Human] goodbye
+[AI] Goodbye, Karen! Have a fantastic day, and don't hesitate to come back if you want to chat or have questions. Take care! 😊
+
+*End log*

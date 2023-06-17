@@ -1,0 +1,11 @@
+Imported existing <module 'comtypes.gen' from 'C:\\Users\\karen\\myprojects\\simple-chat\\chat_env\\lib\\site-packages\\comtypes\\gen\\__init__.py'>
+Using writeable comtypes cache directory: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen'
+*Begin log*
+
+Using openai model gpt-4
+[Human] hello
+[Human] huh
+[Human] good
+[Human] goodbye
+
+*End log*

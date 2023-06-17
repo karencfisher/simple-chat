@@ -1,0 +1,11 @@
+Imported existing <module 'comtypes.gen' from 'C:\\Users\\karen\\myprojects\\simple-chat\\chat_env\\lib\\site-packages\\comtypes\\gen\\__init__.py'>
+Using writeable comtypes cache directory: 'C:\Users\karen\myprojects\simple-chat\chat_env\lib\site-packages\comtypes\gen'
+*Begin log*
+
+Using PaLM model models/chat-bison-001
+[Human] hello
+[AI] Hi Karen! How can I help you today?
+[Human] goodbye
+[AI] It was nice talking to you, Karen. I hope you have a great day!
+
+*End log*

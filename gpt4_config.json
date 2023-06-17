@@ -1,9 +1,9 @@
 {"provider": "openai",
- "model": "gpt-3.5-turbo",
+ "model": "gpt-4",
  "temperature": 0.7,
  "top_p": 1,
  "n": 1,
  "presence_penalty": 0,
  "frequency_penalty": 0,
- "max_context": 4096,
+ "max_context": 8192,
  "max_tokens": 128}

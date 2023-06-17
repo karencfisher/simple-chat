@@ -26,14 +26,14 @@ from ui import STDIO
 
 
 class ChatGPT:
-    def __init__(self, logger, ui=STDIO):
+    def __init__(self, logger, config_file='chat_config.json', ui=STDIO):
         self.ui = ui()
 
         # fetch API key from environment
         load_dotenv()
         
         # get configuration
-        with open('chat_config.json', 'r') as FP:
+        with open(config_file, 'r') as FP:
             self.config = json.load(FP)
         
         if self.config['provider'] == 'openai':
@@ -68,7 +68,8 @@ class ChatGPT:
         # start log
         self.logger = logger
         self.logger.info("*Begin log*\n")
-
+        print(f'Using {self.config["provider"]} model {self.config["model"]}')
+        self.logger.info(f'Using {self.config["provider"]} model {self.config["model"]}')
         self.prompt_tokens_used = 0
         self.completion_tokens_used = 0
 
@@ -187,25 +188,28 @@ class ChatGPT:
 
 def main():
     voice = True
+    config_file = 'chat_config.json'
     if len(sys.argv) > 1:
-        if sys.argv[1] == 'novoice':
-            voice=False
-        else:
-            print(f'Unrecognized argument {sys.argv[1]}')
-            return
+        for arg in sys.argv[1:]:
+            if arg == 'novoice':
+                voice = False
+            elif arg[-11:] == 'config.json' and os.path.exists(arg):
+                config_file = arg
+            else:
+                raise ValueError(f'Invalid argument {arg}')
 
     # initialize logging
     now = datetime.now()
-    logfile = f'chatgptlog-{now.strftime("%m.%d.%Y-%H.%M.%S")}.log'
+    logfile = f'chatlog-{now.strftime("%m.%d.%Y-%H.%M.%S")}.log'
     logpath = os.path.join('logs', logfile)
-    logging.basicConfig(filename=logpath, 
+    logging.basicConfig(handlers=[logging.FileHandler(logpath, 'w', 'utf-8')], 
                         level=logging.INFO, 
                         format='%(message)s')
     logger = logging.getLogger()
 
     # Inistantiate GPTChat and run loop
     print('Initializing...', end='')
-    gpt_chat = ChatGPT(logger)
+    gpt_chat = ChatGPT(logger, config_file=config_file)
     gpt_chat.loop(voice=voice)
 
 

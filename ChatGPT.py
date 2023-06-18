@@ -15,7 +15,7 @@ import json
 import logging
 from datetime import datetime
 import openai
-# import gpt4all
+# from gpt4all import GPT4All
 import google.generativeai as palm
 from dotenv import load_dotenv
 
@@ -40,7 +40,7 @@ class ChatGPT:
             secret_key = os.getenv('OPENAI_SECRET_KEY')
             openai.api_key = secret_key
         elif self.config['provider'] == 'gpt4all':
-            self.gpt4all = gpt4all.GPT4All(self.config['model'])
+            self.gpt4all = GPT4All(self.config['model'])
         elif self.config['provider'] == 'PaLM':
             secret_key = os.getenv('PALM_SECRET_KEY')
             palm.configure(api_key=secret_key)

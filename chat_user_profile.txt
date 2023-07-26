@@ -1,4 +1,3 @@
 name: Karen
-age: 64
 location: Moab, UT
 interests: [AI, art, food]
